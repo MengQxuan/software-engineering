@@ -1,0 +1,56 @@
+<!-- underwater.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水下系统</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: 'Arial', sans-serif;
+        }
+        #underwater-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+        .video-box {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .video-box h2 {
+            color: #00796b;
+            margin-bottom: 15px;
+        }
+        .video-box video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="underwater-container">
+        <div class="video-box">
+            <h2>水下系统</h2>
+            <video controls>
+                <source src="video.mp4" type="video/mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+    </div>
+</body>
+</html>

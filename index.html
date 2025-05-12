@@ -1,0 +1,97 @@
+<!-- auth.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智慧海洋牧场可视化系统 - 注册与登录</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #e0f7fa;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #auth-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-box {
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .form-box h3 {
+            color: #00796b;
+            margin-bottom: 15px;
+        }
+
+        .form-box input {
+            width: 200px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #b2dfdb;
+            border-radius: 5px;
+        }
+
+        .form-box button {
+            padding: 10px 20px;
+            background-color: #00796b;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .form-box button:hover {
+            background-color: #004d40;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="auth-container">
+        <h2>智慧海洋牧场 - 注册与登录</h2>
+        <div class="form-container">
+            <!-- 登录表单 -->
+            <div class="form-box">
+                <h3>登录</h3>
+                <form id="login-form" action="main.html">
+                    <input type="text" placeholder="用户名" id="login-username" required>
+                    <input type="password" placeholder="密码" id="login-password" required>
+                    <button type="submit">登录</button>
+                </form>
+            </div>
+
+            <!-- 注册表单 -->
+            <div class="form-box">
+                <h3>注册</h3>
+                <form id="register-form" action="auth.html">
+                    <input type="text" placeholder="用户名" id="register-username" required>
+                    <input type="password" placeholder="密码" id="register-password" required>
+                    <button type="submit">注册</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
