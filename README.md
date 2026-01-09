@@ -1,6 +1,5 @@
 # 智慧海洋牧场可视化系统 (Smart Ocean Ranch Visualization System)
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 [![Flask](https://img.shields.io/badge/flask-2.0+-green.svg)](https://flask.palletsprojects.com/)
 
@@ -43,7 +42,7 @@
 ### 前端技术
 - **HTML5/CSS3**: 页面结构和样式
 - **JavaScript**: 交互逻辑
-- **Chart.js/ECharts**: 数据可视化图表库（推测）
+- **数据可视化库**: 用于图表展示（具体库由templates中的实现决定）
 
 ### AI/ML技术
 - **OpenAI API (Kimi)**: 智能问答和图像识别
@@ -419,11 +418,11 @@ fetch('/chat', {
 
 ## 📄 许可证
 
-本项目为课程作业项目。具体许可证信息请联系项目作者。
+本项目为课程作业项目，仅用于教育目的。
 
 ## 📞 联系方式
 
-- **项目作者**: 孟启轩 (学号: 2212452)
+- **项目作者**: 孟启轩
 - **GitHub**: [MengQxuan](https://github.com/MengQxuan)
 - **项目仓库**: [software-engineering](https://github.com/MengQxuan/software-engineering)
 

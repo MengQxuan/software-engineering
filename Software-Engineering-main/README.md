@@ -110,14 +110,13 @@ pip install scikit-learn pandas numpy
 # 登录MySQL
 mysql -u root -p
 
-# 在MySQL命令行中执行（注意修改为实际路径）
-source /absolute/path/to/database_setup/setup_database.sql
+# 在MySQL命令行中执行
+# 从项目根目录使用相对路径
+source database_setup/setup_database.sql
 
-# 例如 Windows:
-# source C:/Users/YourName/software-engineering/Software-Engineering-main/database_setup/setup_database.sql
-
-# 例如 Linux/macOS:
-# source /home/user/software-engineering/Software-Engineering-main/database_setup/setup_database.sql
+# 或使用绝对路径（根据你的实际情况）
+# Windows示例: source C:/Projects/software-engineering/Software-Engineering-main/database_setup/setup_database.sql
+# Linux/macOS示例: source /home/user/software-engineering/Software-Engineering-main/database_setup/setup_database.sql
 ```
 
 #### 4.3 修改数据库配置
@@ -540,7 +539,6 @@ server {
 ## 📞 联系方式
 
 - **作者**: 孟启轩
-- **学号**: 2212452
 - **课程**: 2025春 软件工程
 - **GitHub**: [MengQxuan/software-engineering](https://github.com/MengQxuan/software-engineering)
 
