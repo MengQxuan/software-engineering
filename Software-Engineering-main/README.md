@@ -1,35 +1,553 @@
-# software-engineering
+# 智慧海洋牧场可视化系统 (Smart Ocean Ranch Visualization System)
 
-2025春 软件工程 “智慧海洋牧场可视化系统”
+2025春 软件工程 "智慧海洋牧场可视化系统"
 
-## 数据库建立：
+一个集成实时监控、数据可视化、AI智能分析的海洋养殖管理平台。
+
+## 🎯 快速导航
+
+- [功能特性](#功能特性)
+- [环境准备](#环境准备)
+- [安装步骤](#安装步骤)
+- [使用指南](#使用指南)
+- [项目结构](#项目结构)
+- [开发指南](#开发指南)
+- [常见问题](#常见问题)
+
+## 功能特性
+
+### ✅ 已实现功能
+
+#### 🔐 用户系统
+- 用户注册和登录
+- 用户角色管理（普通用户/管理员）
+- 会话管理
+
+#### 📊 数据管理与可视化
+- 水质数据实时监控（9项指标）
+- 鱼类信息管理和统计
+- JSON/CSV数据可视化
+- 传感器数据采集与展示
+- 养殖趋势分析
+
+#### 🤖 AI智能功能
+- **智能问答**: 基于Kimi API的养殖咨询系统
+- **图像识别**: 上传图片识别鱼类
+- **体长预测**: 机器学习模型预测鱼类体长
+- **风险评估**: 智能分析养殖风险
+- **决策支持**: 基于数据的智能建议
+
+#### 🎨 用户界面
+- 响应式Dashboard仪表盘
+- 多模块页面（智能中心、数据中心、水下系统等）
+- 数据可视化图表
+
+## 环境准备
+
+### 系统要求
+- **Python**: 3.8+ 
+- **MySQL**: 5.7+
+- **操作系统**: Windows/Linux/macOS
+
+### 所需依赖
+
 ```bash
-mysql -u root -p
-# 输入密码后运行，注意文件路径修改为你的电脑上的路径
-source E:\Edesktop\software-engineering\DataBase_Setup\setup_database.sql
-```
-后面添加数据可以运行database_setup的目录下的python文件
-现在已经成功实现数据库+后端+前端连通
+# 核心框架
+flask                    # Web框架
+pymysql                  # MySQL数据库驱动
+mysql-connector-python   # MySQL连接器
 
----
-## 项目启动：
+# AI功能
+openai                   # OpenAI API (用于Kimi)
+python-dotenv           # 环境变量管理
+
+# 机器学习
+scikit-learn            # ML模型
+pandas                  # 数据处理
+numpy                   # 数值计算
+```
+
+## 安装步骤
+
+### 1. 克隆项目
+
+```bash
+git clone https://github.com/MengQxuan/software-engineering.git
+cd software-engineering/Software-Engineering-main
+```
+
+### 2. 创建Python虚拟环境（推荐）
+
+```bash
+# 创建虚拟环境
+python -m venv venv
+
+# 激活虚拟环境
+# Windows:
+venv\Scripts\activate
+# Linux/macOS:
+source venv/bin/activate
+```
+
+### 3. 安装依赖包
+
+```bash
+pip install flask
+pip install pymysql
+pip install mysql-connector-python
+pip install openai
+pip install python-dotenv
+pip install scikit-learn pandas numpy
+```
+
+### 4. 配置数据库
+
+#### 4.1 启动MySQL服务
+确保MySQL服务正在运行。
+
+#### 4.2 创建数据库
+```bash
+# 登录MySQL
+mysql -u root -p
+
+# 在MySQL命令行中执行（注意修改为实际路径）
+source /absolute/path/to/database_setup/setup_database.sql
+
+# 例如 Windows:
+# source C:/Users/YourName/software-engineering/Software-Engineering-main/database_setup/setup_database.sql
+
+# 例如 Linux/macOS:
+# source /home/user/software-engineering/Software-Engineering-main/database_setup/setup_database.sql
+```
+
+#### 4.3 修改数据库配置
+编辑 `config.py` 文件：
+
 ```python
+DB_CONFIG = {
+    "host": "localhost",
+    "user": "root",
+    "password": "your_mysql_password",  # ⚠️ 修改为你的MySQL密码
+    "database": "smart_ocean_ranch"
+}
+```
+
+### 5. 配置API密钥
+
+编辑 `app/Kimi/.env` 文件：
+
+```env
+MOONSHOT_API_KEY=your_kimi_api_key_here
+```
+
+**获取API密钥**: 
+1. 访问 [Kimi开放平台](https://platform.moonshot.cn/)
+2. 注册并申请API密钥
+3. 将密钥复制到 `.env` 文件
+
+**⚠️ 安全提示**: 不要将包含真实API密钥的 `.env` 文件提交到Git！
+
+### 6. 初始化数据（可选）
+
+```bash
+cd database_setup
+
+# 导入水质数据
+python water_data.py
+
+# 导入鱼类数据
+python fish_data.py
+
+# 创建示例数据
+python create_data.py
+
+# 返回项目根目录
+cd ..
+```
+
+### 7. 启动应用
+
+```bash
 python run.py
 ```
 
-## 目前进度
-* 数据库的初步搭建并和项目连接，登录和跳转的前后端逻辑基本实现
-* 注册功能初步实现
-* 感觉可以注册和登录分离成两个页面
-* 前后端已经调通了，数据库交互问题也不大
-* 中期阶段应该就差可视化部分了
-* 智能问答已实现
-* 图片识别实现
-* 体长预测实现
+✅ 应用成功启动后，访问: `http://localhost:5000`
 
-## 注意事项：
-* 如果在后端配合的时候，页面跳转出现了类似404 NOT FOUND的提示，大概率是因为这个路由没有在蓝图中注册，在app/routes/这个目录下，找一个或者新建一个py文件（新建的话还要再init.py添加新的蓝图），添加对应的文件路径即可。
-* 目前版本的项目结构管理和功能划分还处于能跑就行的阶段，后续有待完善。。。。
-* 数据库目前的数据只有部分，后面有需要可以更新database_setup的sql文件，以便后续部署。
-* 使用前记得配置一下修改一下config.py文件，毕竟我们的mysql的登录密码不太可能一样
-* 注意使用自己的API，在.env那里替换
+## 使用指南
+
+### 首次使用
+
+1. **注册账户**: 访问系统后在登录页面选择注册
+2. **登录系统**: 使用注册的账户登录
+3. **浏览Dashboard**: 查看系统总览和各项指标
+4. **体验功能模块**:
+   - 智能中心: AI问答、图像识别、体长预测
+   - 数据中心: 查看和分析各类数据
+   - 水下系统: 监控水下环境
+   - 养殖趋势: 分析历史数据和预测趋势
+
+### 管理员功能
+
+管理员账户拥有额外权限：
+- 用户管理
+- 系统配置
+- 数据维护
+- 传感器管理
+
+### API使用示例
+
+#### 体长预测API
+
+```bash
+curl -X POST http://localhost:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{
+    "species": "Perch",
+    "length1": 25.5,
+    "length2": 28.0
+  }'
+```
+
+#### AI问答API
+
+```bash
+curl -X POST http://localhost:5000/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "如何提高鱼类养殖效率？"
+  }'
+```
+
+## 项目结构
+
+```
+Software-Engineering-main/
+├── app/                          # 应用主目录
+│   ├── __init__.py              # Flask应用初始化和蓝图注册
+│   ├── routes/                  # 路由模块
+│   │   ├── auth.py             # 认证相关（登录/注册）
+│   │   ├── main.py             # 主页和基础路由
+│   │   ├── admin.py            # 管理员功能
+│   │   ├── info.py             # 信息查询和展示
+│   │   ├── underwater.py       # 水下系统
+│   │   ├── smartcenter.py      # 智能中心（AI功能）
+│   │   ├── datacenter.py       # 数据中心
+│   │   └── trend.py            # 趋势分析
+│   ├── templates/               # HTML模板文件
+│   │   ├── index.html          # 登录页面
+│   │   ├── main.html           # 主页面
+│   │   ├── dashboard.html      # 仪表盘
+│   │   ├── smartcenter.html    # 智能中心
+│   │   ├── chat.html           # AI对话
+│   │   ├── image.html          # 图像识别
+│   │   ├── length_predict.html # 体长预测
+│   │   └── ...                 # 其他模板
+│   ├── static/                  # 静态资源
+│   │   ├── css/                # 样式表
+│   │   ├── js/                 # JavaScript文件
+│   │   └── images/             # 图片资源
+│   ├── Kimi/                    # AI功能模块
+│   │   ├── chat.py             # 智能问答实现
+│   │   ├── image.py            # 图像识别实现
+│   │   ├── train.py            # ML模型训练与预测
+│   │   ├── fish_model.pkl      # 预训练的鱼类预测模型
+│   │   ├── fish_encoder.pkl    # 特征编码器
+│   │   ├── .env                # API密钥配置（需创建）
+│   │   └── test.py             # 测试脚本
+│   ├── visualization/           # 数据可视化模块
+│   │   ├── json_visualizer.py  # JSON数据可视化
+│   │   └── csv_visualizer.py   # CSV数据可视化
+│   └── upload/                  # 文件上传目录
+├── database_setup/              # 数据库配置和初始化
+│   ├── setup_database.sql      # 数据库结构SQL脚本
+│   ├── config.py               # 数据库配置
+│   ├── water_data.py           # 水质数据导入脚本
+│   ├── fish_data.py            # 鱼类数据导入脚本
+│   └── create_data.py          # 示例数据生成脚本
+├── data/                        # 数据文件
+│   ├── Fish.csv                # 鱼类数据集
+│   ├── water/                  # 水质监测数据
+│   ├── 数据说明.md             # 数据说明文档
+│   └── 水质评价指标.png         # 水质评价标准图
+├── config.py                    # 全局配置文件（数据库连接）
+├── run.py                       # 应用启动入口
+└── README.md                    # 本文档
+```
+
+### 核心模块说明
+
+#### 路由蓝图 (app/routes/)
+- **auth.py**: 处理用户注册、登录、登出
+- **main.py**: 主页和基础导航
+- **admin.py**: 管理员专用功能
+- **info.py**: 鱼类信息查询和统计
+- **underwater.py**: 水下监控系统
+- **smartcenter.py**: AI智能功能集成
+- **datacenter.py**: 数据中心和数据管理
+- **trend.py**: 养殖趋势分析
+
+#### AI模块 (app/Kimi/)
+- **chat.py**: 实现与Kimi API的对话接口
+- **image.py**: 实现图像识别功能
+- **train.py**: 机器学习模型的训练和预测
+- **fish_model.pkl**: 基于scikit-learn训练的鱼类体长预测模型
+- **fish_encoder.pkl**: 用于特征编码的对象
+
+#### 数据库 (database_setup/)
+数据库包含以下主要表：
+- `users`: 用户信息（包含普通用户和管理员）
+- `fish`: 鱼类信息（种类、体重、体长等）
+- `sensors`: 传感器设备信息
+- `sensor_data`: 传感器监测数据
+- `water_quality`: 水质监测数据（9项指标）
+
+## 开发指南
+
+### 添加新路由
+
+1. 在 `app/routes/` 下创建新的路由文件（如 `myroute.py`）
+2. 定义蓝图和路由：
+
+```python
+from flask import Blueprint, render_template
+
+bp = Blueprint('myroute', __name__)
+
+@bp.route('/mypage')
+def mypage():
+    return render_template('mypage.html')
+```
+
+3. 在 `app/__init__.py` 中注册蓝图：
+
+```python
+from app.routes.myroute import bp as myroute_bp
+# ...
+app.register_blueprint(myroute_bp)
+```
+
+4. 创建对应的模板文件 `app/templates/mypage.html`
+
+### 添加新的AI功能
+
+1. 在 `app/Kimi/` 下创建新的功能模块
+2. 使用OpenAI客户端调用Kimi API
+3. 在 `app/routes/smartcenter.py` 中添加对应的路由
+
+### 数据库操作
+
+使用 `mysql.connector` 或 `pymysql` 进行数据库操作：
+
+```python
+import mysql.connector
+from config import DB_CONFIG
+
+conn = mysql.connector.connect(**DB_CONFIG)
+cursor = conn.cursor(dictionary=True)
+
+# 执行查询
+cursor.execute("SELECT * FROM fish WHERE species = %s", (species,))
+results = cursor.fetchall()
+
+cursor.close()
+conn.close()
+```
+
+### 代码规范
+
+- 遵循 PEP 8 Python代码规范
+- 使用参数化查询防止SQL注入
+- 添加适当的错误处理
+- 为复杂函数添加注释
+
+## 常见问题
+
+### ❓ 启动时报错: Address already in use
+
+**原因**: 端口5000已被占用
+
+**解决方案**:
+1. 修改 `run.py` 中的端口号: `app.run(port=8080)`
+2. 或关闭占用端口的程序: `lsof -i :5000` (Linux/macOS) 或 `netstat -ano | findstr :5000` (Windows)
+
+### ❓ 数据库连接失败
+
+**检查清单**:
+- [ ] MySQL服务是否已启动
+- [ ] `config.py` 中的密码是否正确
+- [ ] 数据库 `smart_ocean_ranch` 是否已创建
+- [ ] MySQL用户是否有足够权限
+
+### ❓ 页面跳转出现404错误
+
+**原因**: 路由未正确注册
+
+**解决方案**:
+1. 检查路由是否在对应的 `routes/*.py` 文件中定义
+2. 确认蓝图是否在 `app/__init__.py` 中注册
+3. 检查URL是否拼写正确
+
+### ❓ AI功能无法使用
+
+**检查清单**:
+- [ ] `app/Kimi/.env` 文件是否存在并包含有效的API密钥
+- [ ] API密钥是否有效（未过期、有配额）
+- [ ] 网络连接是否正常
+- [ ] 查看控制台日志了解详细错误
+
+### ❓ 模型预测失败
+
+**可能原因**:
+1. 模型文件缺失或损坏（`fish_model.pkl`, `fish_encoder.pkl`）
+2. 输入数据格式不正确
+3. 鱼类种类不在训练数据中
+
+**解决方案**:
+- 检查模型文件是否存在于 `app/Kimi/` 目录
+- 确认输入的鱼类种类是否支持
+- 查看日志获取详细错误信息
+
+### ❓ 上传功能不工作
+
+**解决方案**:
+- 确保 `app/upload/` 目录存在且有写权限
+- 检查文件大小限制
+- 检查文件类型是否允许
+
+## 🔧 开发环境配置
+
+### 推荐IDE
+- **PyCharm**: 功能强大的Python IDE
+- **VS Code**: 轻量级，配合Python插件使用
+
+### 推荐VS Code插件
+- Python
+- Flask Snippets
+- MySQL
+- GitLens
+
+### 调试模式
+
+开发时建议启用Flask的调试模式（已在 `run.py` 中默认启用）：
+
+```python
+app.run(debug=True)
+```
+
+调试模式特性：
+- 代码修改自动重载
+- 详细错误信息
+- 交互式调试器
+
+**⚠️ 注意**: 生产环境务必关闭调试模式！
+
+## 🔒 安全建议
+
+### 开发环境
+- ✅ 使用 `.env` 文件管理敏感配置
+- ✅ 将 `.env` 添加到 `.gitignore`
+- ✅ 使用虚拟环境隔离依赖
+
+### 生产环境
+- ⚠️ 关闭Flask debug模式
+- ⚠️ 使用强密码
+- ⚠️ 启用HTTPS
+- ⚠️ 配置防火墙
+- ⚠️ 定期备份数据库
+- ⚠️ 更新依赖包修复安全漏洞
+- ⚠️ 实现请求限流防止DDoS
+
+## 📈 性能优化建议
+
+1. **数据库优化**
+   - 为常用查询字段添加索引
+   - 使用连接池
+   - 定期清理历史数据
+
+2. **缓存策略**
+   - 使用Redis缓存频繁访问的数据
+   - 实现静态资源CDN
+
+3. **代码优化**
+   - 异步处理耗时任务
+   - 优化数据库查询
+   - 减少不必要的计算
+
+## 🚀 部署建议
+
+### 使用Gunicorn部署
+
+```bash
+pip install gunicorn
+
+# 启动应用
+gunicorn -w 4 -b 0.0.0.0:5000 run:app
+```
+
+### 使用Nginx作为反向代理
+
+配置示例：
+```nginx
+server {
+    listen 80;
+    server_name your_domain.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:5000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+## 🤝 贡献与支持
+
+### 报告问题
+遇到bug或有功能建议？请在GitHub Issues中提出。
+
+### 贡献代码
+欢迎提交Pull Request！请确保：
+- 代码符合项目规范
+- 添加必要的测试
+- 更新相关文档
+
+## 📝 更新日志
+
+### 当前版本特性
+- ✅ 数据库初步搭建并与项目连接
+- ✅ 登录和注册功能实现
+- ✅ 前后端数据交互调通
+- ✅ 智能问答功能（基于Kimi API）
+- ✅ 图像识别功能
+- ✅ 体长预测功能（机器学习模型）
+- ✅ 数据可视化基础框架
+
+### 待优化
+- 🔄 项目结构和功能模块优化
+- 🔄 完善数据库数据
+- 🔄 增强用户体验
+- 🔄 添加更多可视化图表
+- 🔄 实现实时数据推送
+
+## 📚 相关资源
+
+- [Flask官方文档](https://flask.palletsprojects.com/)
+- [MySQL文档](https://dev.mysql.com/doc/)
+- [Kimi API文档](https://platform.moonshot.cn/docs)
+- [scikit-learn文档](https://scikit-learn.org/)
+- [Fish4Knowledge数据集](https://homepages.inf.ed.ac.uk/rbf/fish4knowledge/)
+
+## 📞 联系方式
+
+- **作者**: 孟启轩
+- **学号**: 2212452
+- **课程**: 2025春 软件工程
+- **GitHub**: [MengQxuan/software-engineering](https://github.com/MengQxuan/software-engineering)
+
+---
+
+**最后更新**: 2025年1月
+
+**许可证**: 课程作业项目
+
+如有问题或建议，欢迎通过GitHub Issues联系！
